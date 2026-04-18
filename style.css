@@ -161,14 +161,17 @@ footer {
   padding: 20px;
 }
 
-/* Ocultar botón de menú en PC */
+/* =========================================
+   Botón Menú Móvil (Oculto en PC por defecto)
+   ========================================= */
 .menu-toggle {
-  display: none;
-  background: none;
+  display: none; /* Esto garantiza que no se vea en monitores grandes */
+  background-color: transparent; /* Quita el fondo gris de las imágenes que me pasaste */
   border: none;
   color: white;
-  font-size: 1.8rem;
+  font-size: 2rem; /* Un poco más grande para que sea fácil de tocar */
   cursor: pointer;
+  padding: 0;
 }
 
 /* =========================================
@@ -191,7 +194,7 @@ footer {
     font-size: 2rem;
   }
 
-  /* Mostrar el botón de menú */
+  /* Mostrar el botón de menú SOLO en pantallas pequeñas */
   .menu-toggle {
     display: block;
   }
