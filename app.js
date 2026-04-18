@@ -1,11 +1,11 @@
-//Elementos principales
+// Elementos principales
 const contenedor = document.getElementById("contenido");
 const links = document.querySelectorAll(".nav-links a");
 
-//Precio por libra (constante)
+// Precio por libra (constante)
 const PRECIO_LIBRA = 198;
 
-//Mapa de secciones (uso de Map)
+// Mapa de secciones (uso de Map)
 const secciones = new Map();
 
 // Datos base (uso de Array)
@@ -15,9 +15,9 @@ const servicios = [
   { titulo: "Atención personalizada", texto: "Nos adaptamos a tus necesidades de envío." }
 ];
 
-//CONTENIDO DE CADA SECCION
+// CONTENIDO DE CADA SECCION
 
-//Inicio
+// Inicio
 secciones.set("inicio", `
   <section class="hero">
     <h1>Tu paquete, seguro y rápido</h1>
@@ -43,7 +43,7 @@ for (let i = 0; i < servicios.length; i++) {
 htmlServicios += "</div>";
 secciones.set("servicios", htmlServicios);
 
-//Calculadora de precios (interactiva)
+// Calculadora de precios (interactiva)
 secciones.set("calculadora", `
   <h2>Calculadora de Envíos</h2>
   <p>Calcula el precio estimado de tu paquete.</p>
@@ -53,7 +53,7 @@ secciones.set("calculadora", `
   <p id="resultado"></p>
 `);
 
-//Contacto
+// Contacto
 secciones.set("contacto", `
   <h2>Contáctanos</h2>
   <p>📱 <a href="https://wa.me/8095667700" target="_blank">Envíanos un WhatsApp</a></p>
@@ -69,9 +69,8 @@ secciones.set("contacto", `
   </form>
 `);
 
-//FUNCION PARA MOSTRAR SECCIONES
+// FUNCION PARA MOSTRAR SECCIONES
 function mostrarSeccion(nombre) {
-  // Uso de if y switch para manejar logica
   if (!secciones.has(nombre)) {
     contenedor.innerHTML = "<p>Sección no encontrada.</p>";
     return;
@@ -79,15 +78,12 @@ function mostrarSeccion(nombre) {
 
   contenedor.innerHTML = secciones.get(nombre);
 
-  // Si la seccion es la calculadora, activamos la funcionalidad
-  switch (nombre) {
-    case "calculadora":
-      activarCalculadora();
-      break;
+  if (nombre === "calculadora") {
+    activarCalculadora();
   }
 }
 
-//FUNCION DE CALCULADORA
+// FUNCION DE CALCULADORA
 function activarCalculadora() {
   const boton = document.getElementById("calcular");
   const resultado = document.getElementById("resultado");
@@ -100,7 +96,6 @@ function activarCalculadora() {
       return;
     }
 
-    // Estructura while para ejemplo didáctico
     let contador = 0;
     let precioFinal = 0;
     while (contador < libras) {
@@ -112,22 +107,42 @@ function activarCalculadora() {
   });
 }
 
-//EVENTOS DE NAVEGACION 
+// ==========================================
+// EVENTOS DE NAVEGACION Y MENÚ MÓVIL
+// ==========================================
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinksContainer = document.querySelector('.nav-links');
 
-// Recorremos los enlaces de navegacion con forEach
+// Abrir/Cerrar menú en móviles
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    navLinksContainer.classList.toggle('active');
+  });
+}
+
+// Navegación principal
 links.forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const seccion = link.getAttribute("data-section");
     mostrarSeccion(seccion);
+    
+    // Cerrar menú al seleccionar en móvil
+    if (navLinksContainer.classList.contains('active')) {
+      navLinksContainer.classList.remove('active');
+    }
   });
 });
-// También hacer que el logo lleve a la seccion "inicio"
+
+// Click en el logo lleva a inicio
 const logoLink = document.querySelector('.logo a');
 if (logoLink) {
   logoLink.addEventListener('click', (e) => {
     e.preventDefault();
     mostrarSeccion('inicio');
+    if (navLinksContainer.classList.contains('active')) {
+      navLinksContainer.classList.remove('active');
+    }
   });
 }
 
