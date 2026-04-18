@@ -87,14 +87,12 @@ body {
 
 .about {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
-}
-
-.about img {
-  width: 300px;
-  border-radius: 10px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .servicios {
@@ -108,7 +106,6 @@ body {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s;
@@ -116,6 +113,14 @@ body {
 
 .servicio:hover {
   transform: translateY(-5px);
+}
+
+/* Ajuste preventivo para que nada desborde en móviles */
+.about img, 
+.servicio {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
 }
 
 /* Formulario */
@@ -156,29 +161,58 @@ footer {
   padding: 20px;
 }
 
-/* Responsive */
+/* Ocultar botón de menú en PC */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* =========================================
+   Responsive (Celulares y Tablets)
+   ========================================= */
 @media (max-width: 768px) {
-  .nav-links {
+  .navbar {
+    padding: 15px 20px; 
+  }
+  
+  .container {
+    padding: 30px 5%;
+  }
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  /* Mostrar el botón de menú */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Estilos del menú desplegable oculto por defecto */
+  .navbar .nav-links {
     flex-direction: column;
     background-color: #003366;
     position: absolute;
-    top: 60px;
-    right: 0;
-    display: none;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    gap: 15px;
+    display: none; /* Oculto inicialmente */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
-}
 
-.about {
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente */
-  flex-wrap: wrap;         /* Evita que se salgan del contenedor en pantallas pequeñas */
-  gap: 20px;               /* Espacio entre las fotos */
-  text-align: center;
-  margin-top: 20px;
-}
-
-.about img {
-  width: 300px;
-  border-radius: 10px;
+  /* Esta clase se añade con JS para mostrar el menú */
+  .navbar .nav-links.active {
+    display: flex;
+  }
 }
